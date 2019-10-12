@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var ProductsModel = require('../models/ProductsModel')
 var CommentsModel = require('../models/CommentsModel')
+var paginate = require('express-paginate')
 
 // csrf 셋팅
 var csrf = require('csurf')
@@ -25,14 +26,43 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 router.use(express.static('public'))
 
-router.get('/products', function (req, res) {
+router.get('/products', paginate.middleware(3, 50), async (req,res) => {
   router.use(express.static('public'))
-  ProductsModel.find(function (err, products) {
-    res.render('admin/products', { products: products, title: '상품목록', bodyId: 'products', js: '' })
-    // res.render( 'admin/products' ,
-    //     { products : products } // DB에서 받은 products를 products변수명으로 내보냄
-    // )
-  })
+  // ProductsModel.find(function (err, products) {
+  //   res.render('admin/products', { products: products, title: '상품목록', bodyId: 'products', js: '' })
+  //   // res.render( 'admin/products' ,
+  //   //     { products : products } // DB에서 받은 products를 products변수명으로 내보냄
+  //   // )
+  // })
+     try{
+        const [ results, itemCount ] = await Promise.all([
+            ProductsModel.find().sort('-created_at').limit(req.query.limit).skip(req.skip).exec(),//-내림차순
+            ProductsModel.count({})
+        ]);
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+        
+        const pages = paginate.getArrayPages(req)( 4 , pageCount, req.query.page);
+    
+        /*
+            var b = a(10)(1,2,3)
+            function a(num){
+                return function(aa,bb,cc){
+                    console.log('hello')
+                }
+            }
+        */
+        res.render('admin/products', { 
+            products : results , 
+            pages: pages,
+            pageCount : pageCount,
+            title: '상품목록',
+            bodyId: 'products',
+            js: ''
+        });
+    }catch(error){
+        throw(error)
+        // await에서 에러나면 잡아줌
+    }
 })
 
 router.get('/products/write', csrfProtection, function (req, res) {
@@ -61,13 +91,22 @@ router.post('/products/write', upload.single('thumbnail'), csrfProtection, funct
 router.get('/products/detail/:id', function (req, res) {
   router.use('/products', express.static('public'))
   // url 에서 변수 값을 받아올떈 req.params.id 로 받아온다
-  ProductsModel.findOne({ 'id': req.params.id }, function (err, product) {
-    // 제품정보를 받고 그안에서 댓글을 받아온다.
-    CommentsModel.find({ product_id: req.params.id }, function (err, comments) {
-      res.render('admin/productsDetail', { product: product, comments: comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/dtail.js' })
-      // res.render('admin/productsDetail', { product: product , comments : comments })
-    })
-  })
+  var getData = async() => {
+    return {
+      product: await ProductsModel.findOne({ 'id': req.params.id }).exec(),
+      comments: await CommentsModel.find({ product_id: req.params.id }).exec()
+    }
+  }
+  getData().then(function (result) { 
+    res.render('admin/productsDetail', { product: result.product, comments: result.comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/dtail.js' })
+   })
+  // ProductsModel.findOne({ 'id': req.params.id }, function (err, product) {
+  //   // 제품정보를 받고 그안에서 댓글을 받아온다.
+  //   CommentsModel.find({ product_id: req.params.id }, function (err, comments) {
+  //     res.render('admin/productsDetail', { product: product, comments: comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/dtail.js' })
+  //     // res.render('admin/productsDetail', { product: product , comments : comments })
+  //   })
+  // })
 })
 
 router.get('/products/edit/:id', csrfProtection, function (req, res) {
@@ -128,5 +167,9 @@ router.post('/products/ajax_comment/delete', function (req, res) {
     res.json({ message: 'success' })
   })
 })
+
+router.post('/products/ajax_summernote', upload.single('thumbnail'), function(req,res){
+  res.send( '/uploads/' + req.file.filename);
+});
 
 module.exports = router

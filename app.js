@@ -29,6 +29,7 @@ var accounts = require('./routes/accounts')
 var auth = require('./routes/auth')
 var index = require('./routes/index')
 var needLogin = require('./routes/needLogin')
+var products = require('./routes/products')
 
 
 var app = express()
@@ -93,6 +94,7 @@ app.use('/accounts',accounts)
 app.use('/auth',auth)
 app.use('/', index)
 app.use('/needLogin', needLogin)
+app.use('/products', products)
 
 var server = app.listen( port, function(){
     console.log('Express listening on port', port)
