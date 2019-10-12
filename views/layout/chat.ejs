@@ -1,0 +1,92 @@
+<div class="chatBox card" style="border:1px solid red;">
+
+  <div class="panel panel-default" id="chatWrap">
+      <div class="card-header">
+        실시간 채팅
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="panel-body">
+          <ul id="chatBody"></ul>
+      </div>
+  </div>
+
+    <form action="" method="post" id="sendForm">
+
+        <div class="input-group">
+            <input type="hidden" name="socketId">
+            <input type="text" name="message" class="form-control" placeholder="대화내용을 입력해주세요.">
+            <span class="input-group-btn">
+                <button class="btn btn-primary">작성하기</button>
+            </span>
+        </div><!-- /input-group -->
+
+    </form>  
+
+    <div class="chatBox card" style="margin-top:20px; border:1px solid blue;">
+        <div class="panel panel-default" id="userWrap">
+            <div class="card-header">
+                접속자
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul id="userList" class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+    </div> 
+</div>
+
+
+<style type="text/css">
+.panel-default ul { padding-left:0px; }
+.panel-default ul li { list-style:none; padding-left:0px;}
+.panel-default .panel-body {min-height:350px; max-height:350px;  overflow-y:scroll; }
+#chatWrap ul li strong::after { content: " : "; }
+@media (max-width: 768px) { 
+#userWrap { display:none; }
+#chatWrap .panel-body { min-height:250px; }
+}
+</style>
+<script src="../socket.io/socket.io.js"></script>  
+<script>
+(function(){
+var socket = io();
+
+function updateUserList(userList){
+    $('#userList').html("");
+    for(var key in userList){
+        $('#userList').append('<li>' + userList[key] + '</li>');
+    }
+}
+
+socket.on('leave', function(data){
+    updateUserList(data);
+});
+
+socket.on('join', function(data){
+    updateUserList(data);
+});
+
+socket.on('server message', function(data){
+    $('#chatBody').append('<li><strong>'+ data.displayname +'</strong>' + data.message + '</li>');
+});
+
+$(document).ready(function() {
+    $('#sendForm').submit(function(){
+        var $massage = $('#sendForm input[name=message]');
+        socket.emit('client message', { message : $massage.val()});
+        $massage.val('');
+        return false;
+    });
+});
+
+})();
+
+</script>
+
+</div>

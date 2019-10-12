@@ -1,0 +1,147 @@
+<% layout('layout/layout')%>
+<!--================Slider Area =================-->
+<!--<section class="main_slider_area">
+    <div class="container">
+        <img src="img/home-slider/slider-1.jpg">
+    </div>
+</section>-->
+<!--================End Slider Area =================-->
+
+<!--================Feature Add Area =================-->
+<!--<section class="feature_add_area">
+    <div class="container"> 
+        <div class="row feature_inner">
+            <div class="col-lg-5">
+                <div class="f_add_item">
+                    <div class="f_add_img"><img class="img-fluid" src="img/feature-add/f-add-1.jpg" alt=""></div>
+                    <div class="f_add_hover">
+                        <h4>Best Summer <br />Collection</h4>
+                        <a class="add_btn" href="#">Shop Now <i class="arrow_right"></i></a>
+                    </div>
+                    <div class="sale">Sale</div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="f_add_item right_dir">
+                    <div class="f_add_img"><img class="img-fluid" src="img/feature-add/f-add-2.jpg" alt=""></div>
+                    <div class="f_add_hover">
+                        <h4>Best Summer <br />Collection</h4>
+                        <a class="add_btn" href="#">Shop Now <i class="arrow_right"></i></a>
+                    </div>
+                    <div class="off">10% off</div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="f_add_item">
+                    <div class="f_add_img"><img class="img-fluid" src="img/feature-add/f-add-3.jpg" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!--================End Feature Add Area =================-->
+
+ <!--================Feature Big Add Area =================-->
+<!--<section class="feature_big_add_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="f_add_item white_add">
+                    <div class="f_add_img"><img class="img-fluid" src="img/feature-add/f-add-4.jpg" alt=""></div>
+                    <div class="f_add_hover">
+                        <h4>Best Summer <br />Collection</h4>
+                        <a class="add_btn" href="#">Shop Now <i class="arrow_right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="f_add_item white_add">
+                    <div class="f_add_img"><img class="img-fluid" src="img/feature-add/f-add-5.jpg" alt=""></div>
+                    <div class="f_add_hover">
+                        <h4>Best Summer <br />Collection</h4>
+                        <a class="add_btn" href="#">Shop Now <i class="arrow_right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!--================End Feature Big Add Area =================-->
+
+<!--================Form Blog Area =================-->
+<!--<section class="from_blog_area">
+    <div class="container">
+        <div class="from_blog_inner">
+            <div class="c_main_title">
+                <h2>From The Blog</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="from_blog_item">
+                        <img class="img-fluid" src="img/blog/from-blog/f-blog-1.jpg" alt="">
+                        <div class="f_blog_text">
+                            <h5>fashion</h5>
+                            <p>Neque porro quisquam est qui dolorem ipsum</p>
+                            <h6>21.09.2017</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="from_blog_item">
+                        <img class="img-fluid" src="img/blog/from-blog/f-blog-2.jpg" alt="">
+                        <div class="f_blog_text">
+                            <h5>fashion</h5>
+                            <p>Neque porro quisquam est qui dolorem ipsum</p>
+                            <h6>21.09.2017</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="from_blog_item">
+                        <img class="img-fluid" src="img/blog/from-blog/f-blog-3.jpg" alt="">
+                        <div class="f_blog_text">
+                            <h5>fashion</h5>
+                            <p>Neque porro quisquam est qui dolorem ipsum</p>
+                            <h6>21.09.2017</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!--================End Form Blog Area =================-->
+   <div class="container" id="masonry_container">
+        <% products.forEach(function(product){ %>
+        <div class="masonry-grid">
+            <%if(product.thumbnail){%>
+                <img src="/uploads/<%=product.thumbnail%>">
+            <%}%>
+            <p>
+                <%=product.title%><br />
+                by <%=product.username%>(
+                <%=product.getDate.year%>.
+                <%=product.getDate.month%>.
+                <%=product.getDate.day%>
+                )
+            </p>
+        </div>
+        <%});%>
+    </div>
+
+
+<style type="text/css">
+.masonry-grid img { max-width: 260px; }
+</style>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript">
+    var $masonry_container = $('#masonry_container');
+    $masonry_container.imagesLoaded(function(){
+      $masonry_container.masonry({
+        itemSelector : '.masonry-grid',
+        columnWidth : 270
+      });
+    });
+</script>
+

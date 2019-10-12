@@ -1,0 +1,72 @@
+
+<% layout('../layout/layout')%>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<!--================Categories Banner Area =================-->
+<section class="solid_banner_area">
+    <div class="container">
+        <div class="solid_banner_inner">
+            <h3>JOIN</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="track.html">Join</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--================End Categories Banner Area =================-->
+<section class="login_area p_100" >
+    <div class="container" >
+        <div class="login_inner" >
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="login_title">
+                        <h2>create account</h2>
+                        <p>Follow the steps below to create email account enjoy the great mail.com emailing experience. Vivamus tempus risus vel felis condimentum, non vehicula est iaculis.</p>
+                    </div>
+
+                    <form class="login_form row" role="form" action="" id="join_form" method="post">
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="text" placeholder="ID" name="username">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="email" placeholder="Email" name="email">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="text" placeholder="User Name" name="displayname">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="text" placeholder="Phone" name="phone" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="password" placeholder="Password" name="password">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="password" placeholder="Re-Password" name="password2">
+                        </div>
+                        <div class="col-lg-4 form-group" stlye="border:1px solid blue;">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary searchPost" onclick='execPostCode();'><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 form-group">
+                            <input class="form-control" type="text" placeholder="도로명" name="addr2" id="addr2" type="text" readonly="readonly">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input class="form-control" type="text" placeholder="상세주소" name="addr3" id="addr3" type="text">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <button type="submit" value="submit" class="btn subs_btn form-control">register now</button>    
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4" style="border:1px solid red">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
