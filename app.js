@@ -30,6 +30,8 @@ var auth = require('./routes/auth')
 var index = require('./routes/index')
 var needLogin = require('./routes/needLogin')
 var products = require('./routes/products')
+var cart = require('./routes/cart')
+var checkout = require('./routes/checkout')
 
 
 var app = express()
@@ -50,6 +52,9 @@ app.use(cookieParser())
 
 //업로드 path 추가
 app.use('/uploads', express.static('uploads'))
+
+//static path 추가
+app.use('/static', express.static('static'))
 
 //session 관련 셋팅
 var connectMongo = require('connect-mongo');
@@ -95,6 +100,8 @@ app.use('/auth',auth)
 app.use('/', index)
 app.use('/needLogin', needLogin)
 app.use('/products', products)
+app.use('/cart', cart)
+app.use('/checkout',checkout)
 
 var server = app.listen( port, function(){
     console.log('Express listening on port', port)

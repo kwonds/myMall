@@ -13,7 +13,7 @@ router.get('/:id' , function(req, res){
         };
     });
     getData.then( result =>{
-        res.render('products/detail', { product: result.product , comments : result.comments });
+        res.render('products/detail', {  title:'상품상세', bodyId:'product', js:'../../js/product.js', product: result.product , comments : result.comments });
     });
 });
 
