@@ -18,3 +18,10 @@
      width: 100%;
      background-position: right;
    } */
+
+   #footer {
+    background-image: url( "../img/footer.jpg" );
+    background-repeat: no-repeat;
+    background-position:355px;
+    opacity: 0.5;
+  } 

@@ -27,7 +27,6 @@ var upload = multer({ storage: storage })
 router.use(express.static('public'))
 
 router.get('/products', paginate.middleware(3, 50), async (req,res) => {
-  router.use(express.static('public'))
   // ProductsModel.find(function (err, products) {
   //   res.render('admin/products', { products: products, title: '상품목록', bodyId: 'products', js: '' })
   //   // res.render( 'admin/products' ,
@@ -66,10 +65,8 @@ router.get('/products', paginate.middleware(3, 50), async (req,res) => {
 })
 
 router.get('/products/write', csrfProtection, function (req, res) {
-  router.use(express.static('public'))
   // edit에서도 같은 form을 사용하므로 빈 변수( product )를 넣어서 에러를 피해준다
   res.render('admin/form', { product: '', csrfToken: req.csrfToken(), title: '상품등록', bodyId: 'updateItem', js: '../../js/form.js' })
-  // res.render( 'admin/form' , { product : "", csrfToken : req.csrfToken() })
 })
 
 router.post('/products/write', upload.single('thumbnail'), csrfProtection, function (req, res) {
@@ -98,7 +95,7 @@ router.get('/products/detail/:id', function (req, res) {
     }
   }
   getData().then(function (result) { 
-    res.render('admin/productsDetail', { product: result.product, comments: result.comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/dtail.js' })
+    res.render('admin/productsDetail', { product: result.product, comments: result.comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/detail.js' })
    })
   // ProductsModel.findOne({ 'id': req.params.id }, function (err, product) {
   //   // 제품정보를 받고 그안에서 댓글을 받아온다.
@@ -110,10 +107,7 @@ router.get('/products/detail/:id', function (req, res) {
 })
 
 router.get('/products/edit/:id', csrfProtection, function (req, res) {
-  router.use('/products', express.static('public'))
-  // 기존에 폼에 value안에 값을 셋팅하기 위해 만든다.
   ProductsModel.findOne({ id: req.params.id }, function (err, product) {
-    // res.render('admin/form', { product : product, csrfToken : req.csrfToken() })
     res.render('admin/form', { product: product, csrfToken: req.csrfToken(), title: '상품수정', bodyId: 'editItem', js: '../../../js/edit.js' })
   })
 })
@@ -161,6 +155,7 @@ router.post('/products/ajax_comment/insert', function (req, res) {
     })
   })
 })
+
 
 router.post('/products/ajax_comment/delete', function (req, res) {
   CommentsModel.remove({ id: req.body.comment_id }, function (err) {
