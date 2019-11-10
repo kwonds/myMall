@@ -37,7 +37,11 @@
 <script type="text/javascript">
 
  $('#editForm').submit(function(){
-     $('input[name=files]').remove()
+    $.post($(this).attr('action'), $(this).serialize(), function(result) {
+        if(result){ alert(result.message) }
+        else{$('input[name=files]').remove()}
+    }, 'json');
+    return false;
  })
 
 $('#summernote').summernote({

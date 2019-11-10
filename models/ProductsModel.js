@@ -6,7 +6,7 @@ var { autoIncrement } = require('mongoose-plugin-autoinc')
 var ProductsSchema = new Schema({
     name : { //제품명
         type : String,
-        required: [true, '제목은 입력해주세요']
+        required: [true, '제목을 입력해주세요']
     }, 
     thumbnail : String, //이미지 파일명
     price : Number, //가격
