@@ -25,6 +25,8 @@ $(document).ready(function(){
             }
             return false //form action이 안일어남 (refresh 막음) preventdefault
     })
+
+
 })
 
 $(document).on('click' , '.comment_delete' , function(){
@@ -44,3 +46,18 @@ $(document).on('click' , '.comment_delete' , function(){
         });
     }
 });
+
+function increaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('number').value = value;
+  }
+  
+  function decreaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    document.getElementById('number').value = value;
+  }

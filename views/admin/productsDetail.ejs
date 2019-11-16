@@ -1,4 +1,71 @@
 <% layout('../layout/layout')%>
+<style type="text/css">
+.tg {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+.tg td{ 
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    overflow:hidden;
+    word-break:normal;
+}
+.tg .tg-0lax{
+    text-align:left;
+    vertical-align:top;
+    font-size:15px;
+    width:290px;
+}
+.value-button {
+    display: inline-block;
+    border: 1px solid #ddd;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    background: #eee;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.value-button:hover {
+    cursor: pointer;
+}
+
+#numberForm #decrease {
+    margin-right: -4px;
+    border-radius: 8px 0 0 8px;
+}
+
+#numberForm #increase {
+    margin-left: -4px;
+    border-radius: 0 8px 8px 0;
+}
+
+#numberForm #input-wrap {
+    margin: 0px;
+    padding: 0px;
+}
+
+input#number {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 0px;
+    width: 40px;
+    height: 30px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+</style>
 
 <div class="card" style="width:100%;">
   <ul class="list-group list-group-flush">
@@ -15,22 +82,53 @@
     </li>
 
     <li class="list-group-item">
+        <table class="tg">
+            <tr>
+                <td class="tg-0lax">
+                    <% if(product.thumbnail){%>
+                        <p><img src="/uploads/<%=product.thumbnail%>"/></p>
+                    <% } %>
+                </td>
+                <td class="tg-0lax">
+                    <div style="margin-top:40px;">
+                        <p>상품명 : <%=product.name%></p>
+                        <table><tr>
+                            <td>수량 : </td>
+                            <td><form id="numberForm">
+                                <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                                    <input type="number" id="number" value="0" />
+                                <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                            </form></td>
+                        </tr></table>
+                        <p style="margin-top:10px;">
+                            <button type="button" class="btn btn-warning">장바구니 담기</button>
+                            <button type="button" class="btn btn-success">구매하기</button>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+<!--
         <% if(product.thumbnail){%>
             <p>
                 <img src="/uploads/<%=product.thumbnail%>" style="width: 300px;"/>
             </p>
         <% } %>
         <%=product.description%>
+-->
     </li>
     <li class="list-group-item">
         댓글
-        <div id="comment_area"></div>
+        <div id="comment_area">
             <% comments.forEach( function(comment){ %>
                 <div>
                     <%=comment.content%>
                         ( <a class='comment_delete' comment_id='<%=comment.id%>'>삭제</a> )
                 </div>
             <%})%>
+        </div>
+
         <div>
             <form id="commentForm" action="" method="post">
                 <input type="hidden" name="product_id" value="<%=product.id%>" />

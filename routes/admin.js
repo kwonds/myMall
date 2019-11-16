@@ -82,10 +82,6 @@ router.post('/products/write', upload.single('thumbnail'), csrfProtection, funct
     product.save(function (err) {
       res.redirect('/admin/products')
     })
-  }else{
-    res.json({
-      message: product.validateSync().errors.name.message
-    })
   }
 })
 
