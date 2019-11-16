@@ -107,6 +107,7 @@ router.get('/products/detail/:id', function (req, res) {
 })
 
 router.get('/products/edit/:id', csrfProtection, function (req, res) {
+  router.use('/products', express.static('public'))
   ProductsModel.findOne({ id: req.params.id }, function (err, product) {
     res.render('admin/form', { product: product, csrfToken: req.csrfToken(), title: '상품수정', bodyId: 'editItem', js: '../../../js/edit.js' })
   })
