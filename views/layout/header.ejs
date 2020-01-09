@@ -5,7 +5,7 @@
                     <!--상단 오른쪽 정보 -->
                     <div class="float-md-right">
                         <div class="top_header_middle">
-                            <a href="#"><i class="fa fa-phone"></i> Call Us: <span>010-3027-6036</span></a>
+                            <a href="#"><i class="fa fa-phone"></i> Call Us: <span></span></a>
                             <a href="#"><i class="fa fa-envelope"></i> Email: <span>kwonds770@gmail.com</span></a>
                         </div>
                     </div>
@@ -22,16 +22,19 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item dropdown submenu">
-                                <a class="nav-link dropdown-toggle" href="/admin/products" role="button"  aria-haspopup="true" aria-expanded="false">ADMIN</a>
-                                <% if(isLogin){%>
-                                    <li><a href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')">LOGOUT</a></li>
-                                <%}else{%>
-                                    <li class="nav-item dropdown submenu"><a href="/accounts/join">JOIN</a></li> 
-                                    <li class="nav-item dropdown submenu"><a href="/accounts/login">LOGIN</a></li>  
-                                <%}%>
-                            </li>
+                            <% if(isLogin){%>
+                                <li class="nav-item dropdown submenu">
+                                    <a class="nav-link dropdown-toggle" href="/admin/products" role="button"  aria-haspopup="true" aria-expanded="false">ADMIN</a>
+                                </li>
+                            <%}%>
 
+                            <% if(isLogin){%>
+                                <li><a href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')">LOGOUT</a></li>
+                            <%}else{%>
+                                <li class="nav-item dropdown submenu"><a href="/accounts/join">JOIN</a></li> 
+                                <li class="nav-item dropdown submenu"><a href="/accounts/login">LOGIN</a></li>  
+                            <%}%>
+                        
                             <li class="nav-item dropdown submenu">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Shop <i class="fa fa-angle-down" aria-hidden="true"></i>

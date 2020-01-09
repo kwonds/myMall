@@ -10,20 +10,17 @@ var UserSchema = new Schema({
     email : String,
     displayname : String,
     phone : {
-        type : String,
-        required: [true, '연락처는 필수입니다.']
+        type : String
     },
     password : {
         type : String,
         required: [true, '패스워드는 필수입니다.']
     },
     addr1 : {
-        type : String,
-        required: [true, '우편번호는 필수입니다.']
+        type : String
     },
     addr2 : {
-        type : String,
-        required: [true, '도로명(지번)은 필수입니다.']
+        type : String
     },
     addr3 : String,
     created_at : {

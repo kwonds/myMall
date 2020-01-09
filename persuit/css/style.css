@@ -792,7 +792,7 @@ i:before {
 }
 
 .shop_header_area .navbar .navbar-nav li:first-child {
-  margin-left: 60px;
+  /* margin-left: 60px; */
 }
 
 .shop_header_area .navbar .navbar-nav li:last-child {

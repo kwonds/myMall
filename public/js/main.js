@@ -1,2 +1,1 @@
-console.log('main page console');
-
+console.log('main page console')

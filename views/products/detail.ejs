@@ -2,10 +2,10 @@
 <div class="card" style="width:100%;">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-        <div style="border:1px solid red; float:left;">
+        <div style="float:left;">
             <%=product.name%>
         </div>
-        <div style="border:1px solid blue; float:right;">
+        <div style="float:right;">
             작성일 : 
             <%=product.getDate.year%>-
             <%=product.getDate.month%>-
@@ -14,45 +14,86 @@
     </li>
 
     <li class="list-group-item">
-        <% if(product.thumbnail){%>
-            <p>
-                <img src="/uploads/<%=product.thumbnail%>" style="max-width: 100%"/>
-            </p>
-        <% } %>
-        <%=product.description%>
-    </li>
+        <table class="tg">
+            <tr>
+                <td class="tg-0lax">
+                    <% if(product.thumbnail){%>
+                        <p><img src="/uploads/<%=product.thumbnail%>"/></p>
+                    <% } %>
+                </td>
+                <td class="tg-0lax" style="width:350px;">
+                    <div style="margin-top:40px;">
+                        <form action="" method="post" id="cartForm">
+                            <!--가격-->
+                            <input type="hidden" name="price" value="<%=product.price%>">
+                            <!--갯수-->
+                            <input type="hidden" name="number" value="1">
+                            <!--선택한 갯수 * 가격 = 구매가격-->
+                            <input type="hidden" name="amount" value="<%=product.price%>">
+                            <table>
+                                <tr>
+                                    <p>상품명 : <%=product.name%></p>
+                                </tr>
+                                <tr>
+                                    <div class="printNum">수량 : </div>
+                                    <div class="CountBox">
+                                        <a href="#" type="minus">-</a>
+                                        <p id="amountHtml">1</p>
+                                        <a href="#" type="plus">+</a>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="priceWrap">
+                                        금액 : <span id="priceHtml"><%=product.price%></span>
+                                        <div style="clear:both"></div>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div style="margin-top:10px;">
+                                        <button type="button" class="btn btn-primary">장바구니 담기</button>
+                                        <button type="button" class="btn btn-success">구매하기</button>
+                                    </div>       
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="border:2px solid #eaeaea; border-radius: 30px;">
+            <p style="margin:10px;">
+                <%-product.description%>
+            </p> 
+        </div>
+
+        <p style="margin-top:20px; font-weight:bold;">댓글</p>
+        <div id="comment_area">
+            <% comments.forEach( function(comment){ %>
+                <div>
+                    <%=comment.content%>
+                        ( <a class='comment_delete' comment_id='<%=comment.id%>'>삭제</a> )
+                </div>
+            <%})%>
+        </div>
+
+        <div>
+            <form id="commentForm" action="" method="post">
+                <input type="hidden" name="product_id" value="<%=product.id%>" />
+                <textarea class="form-control" name="content" style="resize: none;"></textarea>
+                <button class="btn btn-primary" style="margin-top: 10px">댓글작성</button>
+            </form>
+        </div>
   
+
+        <div style="float:right;">
+            <a href="/" class="btn btn-default">목록으로</a>
+        </div>
+    </li>
   </ul>
 </div>
 
-<form action="" method="post" id="cartForm">
-    <!--가격 -->
-    <input type="hidden" name="price" value="<%=product.price%>">
-    <!--갯수 -->
-    <input type="hidden" name="number" value="1">
-    <!--선택한 갯수 * 가격 = 구매가격 -->
-    <input type="hidden" name="amount" value="<%=product.price%>">
-
-    <div>
-        <div class="printNum">갯수 : </div>
-        <div class="CountBox">
-            <a href="#" type="minus">-</a>
-            <p id="amountHtml">1</p>
-            <a href="#" type="plus">+</a>
-        </div>
-        <div class="priceWrap">
-            금액 : <span id="priceHtml"><%=product.price%></span>
-            <div style="clear:both"></div>
-        </div>
-    </div>
-    <div style="margin-top:10px; margin-bottom:10px;">
-    <a href="/admin/products" class="btn btn-default">목록으로</a>
-    <button class="btn btn-primary">장바구니 담기</button>
-</div>
-</form>
-
-
 <style>
+
 .printNum { 
     float:left;
     margin-right: 10px; 
@@ -77,8 +118,9 @@
 }
 
 .priceWrap { 
-    float:right; 
+
     font-size: 20px;
+    margin-top:4px;
 }
 
 .priceWrap span::after { 

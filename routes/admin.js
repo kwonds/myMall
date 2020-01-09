@@ -26,7 +26,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 router.use(express.static('public'))
 
-router.get('/products', paginate.middleware(3, 50), async (req,res) => {
+router.get('/products', paginate.middleware(4, 50), async (req,res) => {
   // ProductsModel.find(function (err, products) {
   //   res.render('admin/products', { products: products, title: '상품목록', bodyId: 'products', js: '' })
   //   // res.render( 'admin/products' ,
@@ -99,7 +99,9 @@ router.get('/products/detail/:id', function (req, res) {
    })
   // ProductsModel.findOne({ 'id': req.params.id }, function (err, product) {
   //   // 제품정보를 받고 그안에서 댓글을 받아온다.
-  //   CommentsModel.find({ product_id: req.params.id }, function (err, comments) {
+  //   CommentsModel.find({ product_id: req.params.id 
+
+}, function (err, comments) {
   //     res.render('admin/productsDetail', { product: product, comments: comments, title: '상품등록', bodyId: 'detailItem', js: '../../../js/dtail.js' })
   //     // res.render('admin/productsDetail', { product: product , comments : comments })
   //   })
@@ -109,7 +111,7 @@ router.get('/products/detail/:id', function (req, res) {
 router.get('/products/edit/:id', csrfProtection, function (req, res) {
   router.use('/products', express.static('public'))
   ProductsModel.findOne({ id: req.params.id }, function (err, product) {
-    res.render('admin/form', { product: product, csrfToken: req.csrfToken(), title: '상품수정', bodyId: 'editItem', js: '../../../js/edit.js' })
+    res.render('admin/form', { product: product, csrfToken: req.csrfToken(), title: '상품수정', bodyId: 'editItem', js: '../../../js/form.js' })
   })
 })
 

@@ -28,7 +28,7 @@
     </tbody>
   </table>
 
-  <nav>
+  <nav style="font-size:16px;">
       <ul class="pagination">
           <li>
               <a href="<%= paginate.href(true) %>" aria-label="Previous">
@@ -52,4 +52,24 @@
   </nav>
 
 <a href="/admin/products/write" class="btn btn-default">작성하기</a>
-
+<style>
+ul > li {
+    border-top:1px solid #a8b0e6;
+    border-bottom:1px solid #a8b0e6;
+    border-right:1px solid #a8b0e6;
+    width:20px;
+    text-align:center;
+}
+ul > li:first-child{
+    border:1px solid #a8b0e6;
+    background-color:#f1f1f1;
+    border-radius:5px 0 0 5px;
+}
+ul > li:last-child{
+    border-top:1px solid #a8b0e6;
+    border-bottom:1px solid #a8b0e6;
+    border-right:1px solid #a8b0e6;
+    background-color:#f1f1f1;
+    border-radius:0 5px 5px 0;
+}
+</style>

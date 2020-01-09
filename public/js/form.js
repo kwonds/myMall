@@ -7,6 +7,8 @@ $(document).ready(function() {
     })
 
     $('#editForm').submit(function(){
+        $("input[name=files]").remove()
+        
         var contentName = $("input[name='name']").val()
         var contentPrice = $("input[name='price']").val()
         if(!contentName){
@@ -30,6 +32,7 @@ $(document).ready(function() {
     function sendFile(file, editor, welEditable) {
         data = new FormData();
         data.append("thumbnail", file);
+        // data.append("name", $('input #').val())
         $.ajax({
             data: data,
             type: "POST",

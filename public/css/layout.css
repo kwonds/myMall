@@ -25,3 +25,7 @@
     background-position:355px;
     opacity: 0.5;
   } 
+
+  .shop_header_area .navbar .navbar-nav li:first-child {
+    margin-left: 20px;
+  }

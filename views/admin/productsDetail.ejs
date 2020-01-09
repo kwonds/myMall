@@ -93,24 +93,14 @@ a { cursor: pointer }
                 </td>
                 <td class="tg-0lax">
                     <div style="margin-top:40px;">
+                        <p>제품정보</p>
                         <p>상품명 : <%=product.name%></p>
-                        <table><tr>
-                            <td>수량 : </td>
-                            <td><form id="numberForm">
-                                <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-                                    <input type="number" id="number" value="0" />
-                                <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-                            </form></td>
-                        </tr></table>
-                        <p style="margin-top:10px;">
-                            <button type="button" class="btn btn-warning">장바구니 담기</button>
-                            <button type="button" class="btn btn-success">구매하기</button>
-                        </p>
+                        <p>가격 : <%=product.price%></p>
                     </div>
                 </td>
             </tr>
         </table>
-        <%=product.description%>
+        <%-product.description%>
     </li>
 
     <li class="list-group-item">

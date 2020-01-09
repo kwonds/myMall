@@ -103,26 +103,6 @@ app.use('/products', products)
 app.use('/cart', cart)
 app.use('/checkout',checkout)
 
-var server = app.listen( port, function(){
+app.listen( port, function(){
     console.log('Express listening on port', port)
 })
-
-var listen = require('socket.io')
-var io = listen(server)
-
-// socket io passport 접근하기 위한 미들웨어 적용
-io.use(function (socket, next) {
-    sessionMiddleWare(socket.request, socket.request.res, next);
-});
-
-require('./libs/socketConnection')(io)
-/*
-    var socketConnection = require('./libs/socketConnection')
-    socketConnection(io)
-*/
-
-/*
-        사용자              서버                서버             사용자
-        emit                socket.on          io.emit          socket.on
-        client message      client message     server message   server message
-*/
