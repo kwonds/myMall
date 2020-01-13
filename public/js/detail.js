@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    console.log("detail")
     $('#commentForm').submit(function(){
          var $contentVal = $(this).children('textarea[name=content]').val()
               if($contentVal){

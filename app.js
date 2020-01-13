@@ -31,6 +31,7 @@ var index = require('./routes/index')
 var needLogin = require('./routes/needLogin')
 var products = require('./routes/products')
 var cart = require('./routes/cart')
+var getCart = require('./routes/getCartLen')
 var checkout = require('./routes/checkout')
 
 
@@ -101,6 +102,7 @@ app.use('/', index)
 app.use('/needLogin', needLogin)
 app.use('/products', products)
 app.use('/cart', cart)
+app.use('/getCart', getCart)
 app.use('/checkout',checkout)
 
 app.listen( port, function(){

@@ -21,3 +21,7 @@ function setCookieHour( name, value, hours ){
 	now.setTime(time);
 	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + now.toUTCString() + ";"   
 }
+
+function test(num){
+    return num
+}

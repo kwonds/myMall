@@ -12,21 +12,18 @@ const iamporter = new Iamporter({
     secret: '7S6NcgcaF2iJe0Nu2SJOnsOUvjFB0Ku8CBVPS8Zxbihpi4UlWD9k5YeAhUciEGqhhm79u7GGpX5H2Z2Z'
 });
 
-router.get('/' , function(req, res){
-    
-    var totalAmount = 0; //총결제금액
+router.use(express.static('public'))
+router.post('/' , function(req, res){
+    console.log('결제',req.body)
+    var totalAmount = req.body.price; //총결제금액
+    var totalItem = req.body.id;
     var cartList = {}; //장바구니 리스트
     //쿠키가 있는지 확인해서 뷰로 넘겨준다
     if( typeof(req.cookies.cartList) !== 'undefined'){
         //장바구니데이터
         var cartList = JSON.parse(unescape(req.cookies.cartList));
-
-        //총가격을 더해서 전달해준다.
-        for( let key in cartList){
-            totalAmount += parseInt(cartList[key].amount);
-        }
     }
-    res.render('checkout/index', { title:'결제페이지', bodyId:'checkout', js:'../../js/checkout.js', cartList : cartList , totalAmount : totalAmount } );
+    res.render('checkout/index', { title:'결제페이지', bodyId:'checkout', js:'../../js/checkout.js', cartList : cartList , totalAmount : totalAmount, totalItem : totalItem } );
 });
 
 router.post('/complete', (req,res)=>{
@@ -100,7 +97,7 @@ router.post('/mobile_complete', (req,res)=>{
 });
 
 router.get('/success', function(req,res){
-    res.render('checkout/success', { title:'결제완료', bodyId:'success', js:'../../js/success.js'});
+    res.render('checkout/success', { title:'결제완료', bodyId:'', js:'../../js/success.js'});
 });
 
 router.get('/nomember', function(req,res){

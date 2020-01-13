@@ -9,18 +9,22 @@
         </tr>
 
         <% 
-            if( Object.keys(cartList).length ){ 
-                for( let key in cartList){
+            if( Object.keys(cartList) ){ 
+                for( let key1 in cartList){
+                    for( let key2 in totalItem){
+                        if(key1 === totalItem[key2]){
         %>
             <tr>
                 <td>
-                    <img src="/uploads/<%=cartList[key].thumbnail%>" alt="" width="50" height="50" />
+                    <img src="/uploads/<%=cartList[key1].thumbnail%>" alt="" width="50" height="50" />
                 </td>
-                <td><%=cartList[key].name%></td>
-                <td><%=cartList[key].number%></td>
-                <td><%=cartList[key].amount%> 원</td>
+                <td><%=cartList[key1].name%></td>
+                <td><%=cartList[key1].number%></td>
+                <td><%=cartList[key1].amount%> 원</td>
             </tr>
         <%
+                        }
+                    }
                 } //end for
             }else{
         %>
@@ -31,11 +35,11 @@
     </table>
 
 
-    <div class="text-center" style="font-size:30px; margin-bottom:20px;">
+    <div class="text-center" style="font-size:30px; margin-bottom:20px; width:100%">
         결제금액 : <span style="color:red"> <%=totalAmount%> </span> 원
     </div>
 
-    <form action="" id="orderForm">
+    <form action="" id="orderForm" style="width:100%; margin-top:50px;">
         <h3 class="text-center">배송지정보</h3>
         <table class="table table-bordered table-hover" style="max-width:500px; margin:0 auto;">
             <tbody>
