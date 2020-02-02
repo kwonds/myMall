@@ -5,6 +5,7 @@ var logger = require('morgan')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var loginRequired = require('./libs/loginRequired')
+var adminRequired = require('./libs/adminRequired')
 
 //flash  메시지 관련
 var flash = require('connect-flash')
@@ -86,7 +87,7 @@ app.use(flash())
 app.use(function(req, res, next) {
     app.locals.isLogin = req.isAuthenticated()//전역변수isLogin 템플릿 어디에서나 사용할수있다
     //app.locals.urlparameter = req.url //현재 url 정보를 보내고 싶으면 이와같이 셋팅
-    //app.locals.userData = req.user //사용 정보를 보내고 싶으면 이와같이 셋팅
+    app.locals.userData = req.user //사용 정보를 보내고 싶으면 이와같이 셋팅
     next()
 })
 
@@ -95,7 +96,7 @@ app.use(function(req, res, next) {
 // })
 
 // Routing
-app.use('/admin', loginRequired, admin)
+app.use('/admin', adminRequired, admin)
 app.use('/accounts',accounts)
 app.use('/auth',auth)
 app.use('/', index)

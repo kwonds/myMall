@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var ProductsModel = require('../models/ProductsModel')
 var CommentsModel = require('../models/CommentsModel')
+var CheckoutModel = require('../models/CheckoutModel')
 var paginate = require('express-paginate')
 
 // csrf 셋팅
@@ -169,5 +170,22 @@ router.post('/products/ajax_comment/delete', function (req, res) {
 router.post('/products/ajax_summernote', upload.single('thumbnail'), function(req,res){
   res.send( '/uploads/' + req.file.filename);
 });
+
+router.get('/order', function(req,res){
+  CheckoutModel.find( function(err, orderList){ //첫번째 인자는 err, 두번째는 받을 변수명
+      res.render( 'admin/orderList' , 
+          { orderList : orderList, title: '주문리스트', bodyId: 'order', js: '../../../js/order.js' }
+      );
+  });
+});
+
+router.get('/order/edit/:id', function(req,res){
+  CheckoutModel.findOne( { id : req.params.id } , function(err, order){
+      res.render( 'admin/orderForm' , 
+          { order : order , title: '주문리스트수정', bodyId: 'orderEdit', js: '../../../js/orderEdit.js' }
+      );
+  });
+});
+
 
 module.exports = router

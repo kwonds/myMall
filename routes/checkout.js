@@ -14,9 +14,12 @@ const iamporter = new Iamporter({
 
 router.use(express.static('public'))
 router.post('/' , function(req, res){
-    console.log('결제',req.body)
     var totalAmount = req.body.price; //총결제금액
-    var totalItem = req.body.id;
+    var totalItem = []
+    if(Array.isArray(req.body.id)){
+        totalItem = req.body.id;
+    }else{ totalItem.push(req.body.id) }
+
     var cartList = {}; //장바구니 리스트
     //쿠키가 있는지 확인해서 뷰로 넘겨준다
     if( typeof(req.cookies.cartList) !== 'undefined'){

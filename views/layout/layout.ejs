@@ -7,8 +7,22 @@
 		<%- partial('header') %>
 			<div class="container" style="padding-top: 10px; padding-right:0px; padding-left:0px;">
 				<nav class="navbar navbar-inverse" style="padding:0px;"> 
-					<div class="container-fluid"> 
-						<%- body %>
+					<%	
+						if(bodyId == 'main' || bodyId == 'login' || bodyId == 'join'){
+					%>		
+							<div class="container-fluid"> 
+								<%- body %>
+							</div> 
+					<%
+						}else{
+					%>		
+							<%- partial('sidebar') %>
+							<div class="container-fluid col-sm-10"> 
+								<%- body %>
+							</div> 
+					<%		
+						}
+					%>
 					</div> 
 				</nav>
 			</div>

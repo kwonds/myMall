@@ -8,20 +8,20 @@
             <th>총가격</th>
         </tr>
 
-        <% 
+        <%  
             if( Object.keys(cartList) ){ 
                 for( let key1 in cartList){
                     for( let key2 in totalItem){
-                        if(key1 === totalItem[key2]){
+                        if(key1 == totalItem[key2]){
         %>
-            <tr>
-                <td>
-                    <img src="/uploads/<%=cartList[key1].thumbnail%>" alt="" width="50" height="50" />
-                </td>
-                <td><%=cartList[key1].name%></td>
-                <td><%=cartList[key1].number%></td>
-                <td><%=cartList[key1].amount%> 원</td>
-            </tr>
+                            <tr>
+                                <td>
+                                    <img src="/uploads/<%=cartList[key1].thumbnail%>" alt="" width="50" height="50" />
+                                </td>
+                                <td><%=cartList[key1].name%></td>
+                                <td><%=cartList[key1].number%></td>
+                                <td><%=cartList[key1].amount%> 원</td>
+                            </tr>
         <%
                         }
                     }
@@ -114,7 +114,7 @@ $(document).ready(function(){
             buyer_tel : buyer_tel,
             buyer_addr : buyer_addr,
             buyer_postcode : buyer_postcode,
-            m_redirect_url : 'http://2326aea5.ngrok.io/checkout/mobile_complete'
+            m_redirect_url : 'http://localhost:4000/mobile_complete'
         }, function(rsp){
             if ( rsp.success ) {
 

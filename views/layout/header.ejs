@@ -22,7 +22,7 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <% if(isLogin){%>
+                            <% if(typeof(userData)!=='undefined' && userData.username==='admin'){%>
                                 <li class="nav-item dropdown submenu">
                                     <a class="nav-link dropdown-toggle" href="/admin/products" role="button"  aria-haspopup="true" aria-expanded="false">ADMIN</a>
                                 </li>
